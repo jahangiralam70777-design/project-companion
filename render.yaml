@@ -11,6 +11,8 @@ services:
         value: node-server
       - key: NODE_VERSION
         value: "20"
+      - key: NODE_OPTIONS
+        value: "--max-old-space-size=4096"
       - key: PORT
         value: "10000"
       # Add these in the Render dashboard (do not commit values):
