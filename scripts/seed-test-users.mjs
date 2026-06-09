@@ -27,7 +27,12 @@ const admin = createClient(SUPABASE_URL, SERVICE_KEY, {
 
 const TEST_USERS = [
   { email: "admin@test.com", password: "Admin@12345", role: "admin", display_name: "Test Admin" },
-  { email: "student@test.com", password: "Student@12345", role: "student", display_name: "Test Student" },
+  {
+    email: "student@test.com",
+    password: "Student@12345",
+    role: "student",
+    display_name: "Test Student",
+  },
 ];
 
 async function findUserByEmail(email) {

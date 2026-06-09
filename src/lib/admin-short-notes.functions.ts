@@ -13,28 +13,29 @@ const selectCols =
 // ---------- ADMIN LIST ----------
 export const adminListShortNotes = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((i: {
-    search?: string;
-    level?: string;
-    subjectId?: string;
-    chapterId?: string;
-    kind?: "text" | "pdf" | "doc" | "all";
-    status?: "draft" | "published" | "archived" | "hidden" | "all";
-    page?: number;
-    pageSize?: number;
-  }) =>
-    z
-      .object({
-        search: z.string().trim().max(200).optional(),
-        level: z.string().trim().max(40).optional(),
-        subjectId: z.string().uuid().optional(),
-        chapterId: z.string().uuid().optional(),
-        kind: z.enum(["text", "pdf", "doc", "all"]).default("all"),
-        status: z.enum(["draft", "published", "archived", "hidden", "all"]).default("all"),
-        page: z.number().int().min(1).max(2000).default(1),
-        pageSize: z.number().int().min(1).max(100).default(20),
-      })
-      .parse(i),
+  .inputValidator(
+    (i: {
+      search?: string;
+      level?: string;
+      subjectId?: string;
+      chapterId?: string;
+      kind?: "text" | "pdf" | "doc" | "all";
+      status?: "draft" | "published" | "archived" | "hidden" | "all";
+      page?: number;
+      pageSize?: number;
+    }) =>
+      z
+        .object({
+          search: z.string().trim().max(200).optional(),
+          level: z.string().trim().max(40).optional(),
+          subjectId: z.string().uuid().optional(),
+          chapterId: z.string().uuid().optional(),
+          kind: z.enum(["text", "pdf", "doc", "all"]).default("all"),
+          status: z.enum(["draft", "published", "archived", "hidden", "all"]).default("all"),
+          page: z.number().int().min(1).max(2000).default(1),
+          pageSize: z.number().int().min(1).max(100).default(20),
+        })
+        .parse(i),
   )
   .handler(async ({ data, context }) => {
     await assertPermission(context.supabase, context.userId, "manage_content");
@@ -120,8 +121,10 @@ export const listPublicShortNotes = createServerFn({ method: "POST" })
     const vis = await loadVisibility(context.supabase);
     if (vis.section_hidden) return { hidden: true as const, rows: [] };
     if (data.level && vis.hidden_levels.includes(data.level)) return { hidden: false, rows: [] };
-    if (data.subjectId && vis.hidden_subject_ids.includes(data.subjectId)) return { hidden: false, rows: [] };
-    if (data.chapterId && vis.hidden_chapter_ids.includes(data.chapterId)) return { hidden: false, rows: [] };
+    if (data.subjectId && vis.hidden_subject_ids.includes(data.subjectId))
+      return { hidden: false, rows: [] };
+    if (data.chapterId && vis.hidden_chapter_ids.includes(data.chapterId))
+      return { hidden: false, rows: [] };
 
     let q = context.supabase
       .from("short_notes")
@@ -237,11 +240,20 @@ export const adminDuplicateShortNote = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await assertPermission(context.supabase, context.userId, "manage_content");
     const { data: src, error: se } = await context.supabase
-      .from("short_notes").select(selectCols).eq("id", data.id).single();
+      .from("short_notes")
+      .select(selectCols)
+      .eq("id", data.id)
+      .single();
     if (se) throw se;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { id: _i, created_at: _c, updated_at: _u, view_count: _v, download_count: _d, ...rest } =
-      src as Record<string, unknown>;
+    const {
+      id: _i,
+      created_at: _c,
+      updated_at: _u,
+      view_count: _v,
+      download_count: _d,
+      ...rest
+    } = src as Record<string, unknown>;
     const payload = {
       ...(rest as Record<string, unknown>),
       status: "draft",

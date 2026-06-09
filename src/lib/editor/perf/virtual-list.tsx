@@ -42,10 +42,7 @@ export function VirtualList<T>({
 
   const total = items.length * itemHeight;
   const start = Math.max(0, Math.floor(scrollTop / itemHeight) - overscan);
-  const end = Math.min(
-    items.length,
-    Math.ceil((scrollTop + height) / itemHeight) + overscan,
-  );
+  const end = Math.min(items.length, Math.ceil((scrollTop + height) / itemHeight) + overscan);
 
   const slice: ReactNode[] = [];
   for (let i = start; i < end; i++) {

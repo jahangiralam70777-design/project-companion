@@ -30,10 +30,7 @@ export function debounce<T extends (...args: never[]) => void>(
   return wrapped;
 }
 
-export function throttle<T extends (...args: never[]) => void>(
-  fn: T,
-  wait: number,
-): T {
+export function throttle<T extends (...args: never[]) => void>(fn: T, wait: number): T {
   let last = 0;
   let pending: ReturnType<typeof setTimeout> | null = null;
   let lastArgs: unknown[] | null = null;
@@ -63,12 +60,13 @@ export function chunkedRun<T>(
   return new Promise((resolve) => {
     let i = 0;
     const ric: (cb: () => void) => void =
-      typeof window !== "undefined" &&
-      "requestIdleCallback" in window
+      typeof window !== "undefined" && "requestIdleCallback" in window
         ? (cb) =>
-            (window as unknown as {
-              requestIdleCallback: (c: () => void) => void;
-            }).requestIdleCallback(cb)
+            (
+              window as unknown as {
+                requestIdleCallback: (c: () => void) => void;
+              }
+            ).requestIdleCallback(cb)
         : (cb) => setTimeout(cb, 0);
     function tick() {
       const end = Math.min(i + chunkSize, items.length);

@@ -28,8 +28,7 @@ function diffSections(prev: EditorSection[], next: EditorSection[]) {
   }
   for (const s of prev) if (!nextMap.has(s.id)) removed.push(s.id);
   const reordered =
-    prev.length === next.length &&
-    prev.some((s, i) => next[i] && next[i].id !== s.id);
+    prev.length === next.length && prev.some((s, i) => next[i] && next[i].id !== s.id);
   return { changed, removed, reordered };
 }
 

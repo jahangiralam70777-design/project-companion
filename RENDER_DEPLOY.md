@@ -12,13 +12,13 @@ Fill in the secret env vars when prompted.
 
 **New → Web Service** → connect repo → use these settings:
 
-| Setting             | Value                                    |
-| ------------------- | ---------------------------------------- |
-| Runtime             | Node                                     |
-| Node version        | 20 (set env `NODE_VERSION=20`)           |
-| Build Command       | `npm install --legacy-peer-deps && npm run build:node` |
-| Start Command       | `npm start`                              |
-| Health check path   | `/`                                      |
+| Setting           | Value                                                  |
+| ----------------- | ------------------------------------------------------ |
+| Runtime           | Node                                                   |
+| Node version      | 20 (set env `NODE_VERSION=20`)                         |
+| Build Command     | `npm install --legacy-peer-deps && npm run build:node` |
+| Start Command     | `npm start`                                            |
+| Health check path | `/`                                                    |
 
 ### Required environment variables
 
