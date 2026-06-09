@@ -7,8 +7,13 @@ export async function signInWithEmail(email: string, password: string) {
   return data;
 }
 
-export async function signUpWithEmail(input: { email: string; password: string; displayName?: string }) {
-  const redirectTo = typeof window !== "undefined" ? `${window.location.origin}/dashboard` : undefined;
+export async function signUpWithEmail(input: {
+  email: string;
+  password: string;
+  displayName?: string;
+}) {
+  const redirectTo =
+    typeof window !== "undefined" ? `${window.location.origin}/dashboard` : undefined;
   const { data, error } = await supabase.auth.signUp({
     email: input.email,
     password: input.password,
@@ -25,7 +30,11 @@ export async function signOut() {
   await supabase.auth.signOut();
 }
 
-export async function fetchSessionUser(): Promise<{ name: string; email: string; role: AppRole } | null> {
+export async function fetchSessionUser(): Promise<{
+  name: string;
+  email: string;
+  role: AppRole;
+} | null> {
   const { data: sessionData } = await supabase.auth.getSession();
   const session = sessionData.session;
   if (!session?.user) return null;

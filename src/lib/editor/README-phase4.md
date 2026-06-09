@@ -6,6 +6,7 @@ Engine core), and Phase-3 (backend CMS + publish system) are untouched.
 ## Modules
 
 ### Performance (`src/lib/editor/perf/`)
+
 - `scheduler.ts` — `debounce`, `throttle`, `chunkedRun` (idle-time batching).
 - `virtual-list.tsx` — zero-dep virtualized list for 100+ section trees.
 - `preview-sync.ts` — debounced diff-based iframe updates (no full reloads).
@@ -14,6 +15,7 @@ Engine core), and Phase-3 (backend CMS + publish system) are untouched.
 - `lazy-load.ts` — code-split history / diff / comments panels.
 
 ### Safety (`src/lib/editor/safety/`)
+
 - `EditorErrorBoundary.tsx` — per-panel non-blocking boundary with retry.
 - `auto-recovery.ts` — `retryWithBackoff`, `syncWithLocalFallback`.
 - `secure-bridge.ts` — strict origin + command allow-list + 256KB cap + script sanitization.

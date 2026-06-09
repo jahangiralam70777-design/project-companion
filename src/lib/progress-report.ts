@@ -121,9 +121,7 @@ export function downloadProgressPdf(period: ReportPeriod, data: ReportData) {
     styles: { fontSize: 10, cellPadding: 6 },
   });
 
-  const subjects = (data.subjects ?? []).filter(
-    (s) => s.completedChapters > 0 || s.avgScore > 0,
-  );
+  const subjects = (data.subjects ?? []).filter((s) => s.completedChapters > 0 || s.avgScore > 0);
   if (subjects.length) {
     autoTable(doc, {
       // @ts-expect-error lastAutoTable is injected by the plugin
@@ -162,7 +160,15 @@ export function downloadProgressExcel(period: ReportPeriod, data: ReportData) {
   const subjects = data.subjects ?? [];
   if (subjects.length) {
     const sheet = XLSX.utils.aoa_to_sheet([
-      ["Subject", "Level", "Completion %", "Avg score %", "Weak chapters", "Chapters done", "Total chapters"],
+      [
+        "Subject",
+        "Level",
+        "Completion %",
+        "Avg score %",
+        "Weak chapters",
+        "Chapters done",
+        "Total chapters",
+      ],
       ...subjects.map((s) => [
         s.name,
         s.level,
@@ -173,7 +179,15 @@ export function downloadProgressExcel(period: ReportPeriod, data: ReportData) {
         s.totalChapters,
       ]),
     ]);
-    sheet["!cols"] = [{ wch: 28 }, { wch: 14 }, { wch: 13 }, { wch: 12 }, { wch: 14 }, { wch: 14 }, { wch: 14 }];
+    sheet["!cols"] = [
+      { wch: 28 },
+      { wch: 14 },
+      { wch: 13 },
+      { wch: 12 },
+      { wch: 14 },
+      { wch: 14 },
+      { wch: 14 },
+    ];
     XLSX.utils.book_append_sheet(wb, sheet, "Subjects");
   }
 
@@ -198,13 +212,28 @@ export function downloadProgressCsv(period: ReportPeriod, data: ReportData) {
     lines.push("");
     lines.push("Subject,Level,Completion %,Avg score %,Weak chapters,Chapters done,Total chapters");
     for (const s of subjects) {
-      lines.push([s.name, s.level, s.completionPct, s.avgScore, s.weakChapters, s.completedChapters, s.totalChapters].map(esc).join(","));
+      lines.push(
+        [
+          s.name,
+          s.level,
+          s.completionPct,
+          s.avgScore,
+          s.weakChapters,
+          s.completedChapters,
+          s.totalChapters,
+        ]
+          .map(esc)
+          .join(","),
+      );
     }
   }
   const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = url; a.download = `learning-report-${period}-${now.toISOString().slice(0, 10)}.csv`;
-  document.body.appendChild(a); a.click(); a.remove();
+  a.href = url;
+  a.download = `learning-report-${period}-${now.toISOString().slice(0, 10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
   URL.revokeObjectURL(url);
 }

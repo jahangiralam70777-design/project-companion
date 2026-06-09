@@ -3,8 +3,7 @@
 // Uses CompressionStream when available, falls back to base64 JSON.
 
 const HAS_CS =
-  typeof CompressionStream !== "undefined" &&
-  typeof DecompressionStream !== "undefined";
+  typeof CompressionStream !== "undefined" && typeof DecompressionStream !== "undefined";
 
 export interface CompressedSnapshot {
   __compressed: true;
@@ -20,7 +19,8 @@ function bytesToBase64(bytes: Uint8Array): string {
 }
 
 function base64ToBytes(b64: string): Uint8Array {
-  const bin = typeof atob !== "undefined" ? atob(b64) : Buffer.from(b64, "base64").toString("binary");
+  const bin =
+    typeof atob !== "undefined" ? atob(b64) : Buffer.from(b64, "base64").toString("binary");
   const out = new Uint8Array(bin.length);
   for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
   return out;
@@ -42,7 +42,9 @@ export async function decompressSnapshot<T = unknown>(c: CompressedSnapshot): Pr
   if (c.algo === "raw" || !HAS_CS) {
     return JSON.parse(new TextDecoder().decode(bytes)) as T;
   }
-  const stream = new Blob([bytes as BlobPart]).stream().pipeThrough(new DecompressionStream("gzip"));
+  const stream = new Blob([bytes as BlobPart])
+    .stream()
+    .pipeThrough(new DecompressionStream("gzip"));
   const json = await new Response(stream).text();
   return JSON.parse(json) as T;
 }

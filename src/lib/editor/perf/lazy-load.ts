@@ -8,9 +8,7 @@ export const LazyHistoryPanel = lazy(() =>
     // The designer already bundles history UI internally — re-export as a
     // placeholder so future external panels can hook in here without
     // touching call sites.
-    default:
-      (m as unknown as { HistoryPanel?: React.ComponentType }).HistoryPanel ??
-      (() => null),
+    default: (m as unknown as { HistoryPanel?: React.ComponentType }).HistoryPanel ?? (() => null),
   })),
 );
 

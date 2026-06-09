@@ -5,10 +5,7 @@
 //   - oversized payloads
 //   - script-injection attempts via untrusted strings
 
-import {
-  attachBridgeListener,
-  isBridgeMessage,
-} from "@/lib/editor/bridge";
+import { attachBridgeListener, isBridgeMessage } from "@/lib/editor/bridge";
 import type { BridgeCommand } from "@/lib/editor/types";
 
 const KNOWN_COMMANDS = new Set<string>([

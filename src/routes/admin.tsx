@@ -48,7 +48,10 @@ function AdminGate({ children }: { children: React.ReactNode }) {
 
   const status = useMemo(() => {
     if (!sessionReady || authLoading || hasSupabaseSession === null) return "loading" as const;
-    if (!user) { if (hasLocalAuthSession()) return "loading" as const; return "no-user" as const; }
+    if (!user) {
+      if (hasLocalAuthSession()) return "loading" as const;
+      return "no-user" as const;
+    }
     if (user.role !== "admin") return "forbidden" as const;
     if (!hasSupabaseSession && !user.id?.startsWith("demo-")) return "demo" as const;
     return "ok" as const;
@@ -92,8 +95,8 @@ function AdminGate({ children }: { children: React.ReactNode }) {
           <ShieldAlert className="mx-auto mb-3 h-8 w-8 text-amber-400" />
           <h2 className="text-lg font-semibold">Real admin login required</h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            You’re signed in with a demo session, which can’t authorize backend writes. Please
-            sign out and log in with a real admin account (any{" "}
+            You’re signed in with a demo session, which can’t authorize backend writes. Please sign
+            out and log in with a real admin account (any{" "}
             <span className="font-mono">@caaspirebd.com</span> email).
           </p>
           <button

@@ -69,10 +69,16 @@
   --neon-blue: oklch(0.72 0.18 235);
   --neon-pink: oklch(0.72 0.22 340);
 
-  --gradient-hero: radial-gradient(circle at 20% 20%, oklch(0.85 0.12 290 / 0.5), transparent 50%),
-                   radial-gradient(circle at 80% 30%, oklch(0.85 0.12 235 / 0.45), transparent 55%),
-                   radial-gradient(circle at 50% 90%, oklch(0.9 0.1 320 / 0.35), transparent 55%);
-  --gradient-text: linear-gradient(135deg, oklch(0.55 0.24 290), oklch(0.65 0.2 235) 60%, oklch(0.7 0.22 340));
+  --gradient-hero:
+    radial-gradient(circle at 20% 20%, oklch(0.85 0.12 290 / 0.5), transparent 50%),
+    radial-gradient(circle at 80% 30%, oklch(0.85 0.12 235 / 0.45), transparent 55%),
+    radial-gradient(circle at 50% 90%, oklch(0.9 0.1 320 / 0.35), transparent 55%);
+  --gradient-text: linear-gradient(
+    135deg,
+    oklch(0.55 0.24 290),
+    oklch(0.65 0.2 235) 60%,
+    oklch(0.7 0.22 340)
+  );
   --gradient-cta: linear-gradient(135deg, oklch(0.55 0.24 290), oklch(0.6 0.2 250));
   --glass-bg: oklch(1 0 0 / 0.6);
   --glass-border: oklch(1 0 0 / 0.7);
@@ -105,10 +111,16 @@
   --neon-blue: oklch(0.78 0.18 235);
   --neon-pink: oklch(0.78 0.22 340);
 
-  --gradient-hero: radial-gradient(circle at 20% 20%, oklch(0.4 0.25 290 / 0.55), transparent 50%),
-                   radial-gradient(circle at 80% 30%, oklch(0.4 0.22 235 / 0.5), transparent 55%),
-                   radial-gradient(circle at 50% 90%, oklch(0.4 0.2 320 / 0.4), transparent 55%);
-  --gradient-text: linear-gradient(135deg, oklch(0.78 0.22 295), oklch(0.82 0.18 235) 55%, oklch(0.82 0.2 340));
+  --gradient-hero:
+    radial-gradient(circle at 20% 20%, oklch(0.4 0.25 290 / 0.55), transparent 50%),
+    radial-gradient(circle at 80% 30%, oklch(0.4 0.22 235 / 0.5), transparent 55%),
+    radial-gradient(circle at 50% 90%, oklch(0.4 0.2 320 / 0.4), transparent 55%);
+  --gradient-text: linear-gradient(
+    135deg,
+    oklch(0.78 0.22 295),
+    oklch(0.82 0.18 235) 55%,
+    oklch(0.82 0.2 340)
+  );
   --gradient-cta: linear-gradient(135deg, oklch(0.65 0.27 295), oklch(0.7 0.22 245));
   --glass-bg: oklch(0.2 0.04 270 / 0.55);
   --glass-border: oklch(1 0 0 / 0.1);
@@ -117,37 +129,73 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0) }
-  50% { transform: translateY(-14px) }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
 }
 @keyframes pulse-glow {
-  0%, 100% { opacity: 0.55; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.05); }
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
 }
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 @keyframes ring-progress {
-  from { stroke-dashoffset: 339; }
-  to { stroke-dashoffset: 75; }
+  from {
+    stroke-dashoffset: 339;
+  }
+  to {
+    stroke-dashoffset: 75;
+  }
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html { scroll-behavior: smooth; background-color: var(--color-background); }
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-background);
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
-
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
 }
 
 @utility glass {
@@ -164,11 +212,18 @@
   color: transparent;
 }
 
-@utility bg-hero-glow { background: var(--gradient-hero); }
-@utility bg-cta-gradient { background: var(--gradient-cta); }
-@utility shadow-glow { box-shadow: var(--shadow-glow); }
-@utility shadow-card-soft { box-shadow: var(--shadow-card); }
-
+@utility bg-hero-glow {
+  background: var(--gradient-hero);
+}
+@utility bg-cta-gradient {
+  background: var(--gradient-cta);
+}
+@utility shadow-glow {
+  box-shadow: var(--shadow-glow);
+}
+@utility shadow-card-soft {
+  box-shadow: var(--shadow-card);
+}
 
 /* ============================================================
    Responsive overflow safety utilities
@@ -222,25 +277,47 @@
    without per-component changes.
    ============================================================ */
 @layer base {
-  html, body, #root { max-width: 100vw; overflow-x: hidden; }
-  body { overflow-wrap: anywhere; }
-  table { table-layout: auto; max-width: 100%; }
-  td, th { overflow-wrap: anywhere; word-break: break-word; }
+  html,
+  body,
+  #root {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  body {
+    overflow-wrap: anywhere;
+  }
+  table {
+    table-layout: auto;
+    max-width: 100%;
+  }
+  td,
+  th {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
 
   /* Action controls (buttons, badges, icons) must never be
      squeezed to zero or pushed out by long sibling text. */
-  button, [role="button"], a[role="button"] { flex-shrink: 0; }
+  button,
+  [role="button"],
+  a[role="button"] {
+    flex-shrink: 0;
+  }
 
   /* Common flex-row idiom (`flex items-center` with a `flex-1`
      child) silently overflows because flex children default to
      `min-width: auto`. Force min-width:0 on the grow child so
      truncation/wrapping actually works. */
   .flex > .flex-1,
-  .flex > .grow { min-width: 0; }
+  .flex > .grow {
+    min-width: 0;
+  }
 
   /* Cards/dialogs should clip their own overflow rather than
      pushing the page wider. */
-  [data-slot="card"] { max-width: 100%; }
+  [data-slot="card"] {
+    max-width: 100%;
+  }
 }
 
 /* ============================================================
@@ -253,7 +330,9 @@
   background-color: var(--background);
   color: var(--foreground);
   border-radius: 1.5rem;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
 }
 
 .mcq-scope.mcq-theme-light {
@@ -280,7 +359,12 @@
   --neon-purple: oklch(0.6 0.27 295);
   --neon-blue: oklch(0.72 0.18 235);
   --neon-pink: oklch(0.72 0.22 340);
-  --gradient-text: linear-gradient(135deg, oklch(0.55 0.24 290), oklch(0.65 0.2 235) 60%, oklch(0.7 0.22 340));
+  --gradient-text: linear-gradient(
+    135deg,
+    oklch(0.55 0.24 290),
+    oklch(0.65 0.2 235) 60%,
+    oklch(0.7 0.22 340)
+  );
   --gradient-cta: linear-gradient(135deg, oklch(0.55 0.24 290), oklch(0.6 0.2 250));
   --glass-bg: oklch(1 0 0 / 0.6);
   --glass-border: oklch(1 0 0 / 0.7);
@@ -289,11 +373,23 @@
 }
 
 @keyframes mcq-shimmer-x {
-  0% { transform: translateX(-120%); }
-  100% { transform: translateX(220%); }
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(220%);
+  }
 }
 @keyframes mcq-pop {
-  0% { transform: scale(0.92); opacity: 0; }
-  60% { transform: scale(1.02); }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
